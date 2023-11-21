@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.example.galacean_effects"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+    sourceSets {
+        main.jniLibs.srcDirs = ['libs']
+    }
+}
+
+dependencies {
+    implementation(name: '../../../libs/aar/galaceanEffects', ext: 'aar')
+
+    implementation "com.squareup.okhttp3:okhttp:3.10.0"
+    implementation 'com.alibaba:fastjson:1.2.76'
+}
