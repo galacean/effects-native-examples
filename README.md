@@ -1,18 +1,33 @@
 # Galacean Effects Native Examples
 
 ## Introduction
-GEPlayer is a powerful tool for playing Galacean Effects Native animations on mobile platforms. It provides an easy-to-use interface and supports both Android and iOS.  This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
-- android/: Android Examples
-- ios/: iOS Examples
+Galacean Effects Native is a implement of [Galacean Effects](https://galacean.antgroup.com/effects/#/home) targeting mobile platform(iOS & Android), which shares same [Galacean Effects format](https://github.com/galacean/effects-specification) and Galacean Effects Studio(https://huoxing.alipay.com/) workflow. It provides an easy-to-use interface and supports both Android and iOS.  This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
+
+It features:
+
+* high performance,  max reaches 120fps, the core engine is implemented upon c++ and the  standard-compliant OpenGL graphic layer.
+* seamless integrate with mobile widgets, you can combine Galacean Effects Native animation with mobile animations flexibly to achieve better immersive experience.
+* vector based, and mp4 support coming soon, mass adoption in mobile app(Alipay).
+
+This repo is for demo of integration of Galacean Effects Native Player(take GEPlayer for short).
 
 ## OS Version Requirement
 - Android: 6.0 or later
 - iOS: 11.0 or later
 
+## Directory layout
+
+* "ios": iOS demo xcode project
+* "android": Android demo gradle project
+
 ## Getting Started
+
 To use GEPlayer in your Android or iOS project, follow these steps:
 
-- Android: Add the following code snippet to your build.gradle file
+### Android
+
+Add the following dependencies to your build.gradle file
+
 ```
 dependencies {
     // ...
@@ -20,8 +35,10 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.alibaba:fastjson:1.2.76'
 }
-```  
-and
+```
+
+and extends your own activity
+
 ```
 import io.github.galacean.effects.GEPlayer
 // ...
@@ -68,7 +85,10 @@ public class GEPlayDemo extends Activity {
     }
 }
 ```
-- iOS: Add the following code snippet to your Podfile
+
+### iOS
+
+Add the following code snippet to your Podfile
 ```
 target 'xxx' do
   # ...
