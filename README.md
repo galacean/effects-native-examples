@@ -1,24 +1,27 @@
 # Galacean Effects Native Examples
 
 ## Introduction
-Galacean Effects Native is a implement of [Galacean Effects](https://galacean.antgroup.com/effects/#/home) targeting mobile platform(iOS & Android), which shares same [Galacean Effects format](https://github.com/galacean/effects-specification) and Galacean Effects Studio(https://huoxing.alipay.com/) workflow. It provides an easy-to-use interface and supports both Android and iOS.  This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
+
+Galacean Effects Native is a mobile first motion engine of [Galacean Effects](https://galacean.antgroup.com/effects/#/home) targeting mobile platform(iOS & Android), which shares the same [Galacean Effects format](https://github.com/galacean/effects-specification) and [Galacean Effects Studio](https://huoxing.alipay.com/) workflow. This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
 
 It features:
 
-* high performance,  max reaches 120fps, the core engine is implemented upon c++ and the  standard-compliant OpenGL graphic layer.
+* high performance, max reaches 120fps, the core engine is built upon c++ and the standard-compliant OpenGL graphic layer.
 * seamless integrate with mobile widgets, you can combine Galacean Effects Native animation with mobile animations flexibly to achieve better immersive experience.
-* vector based, and mp4 support coming soon, mass adoption in mobile app(Alipay).
+* vector based, and video support coming soon, mass adoption in mobile app(Alipay).
+* motion engine implements(web、Android、iOS)、Galacean Effects file format & spec、Galacean Effects Studio maintained by a whole team of [Galacean Effects](https://galacean.antgroup.com/effects/#/home), evolves in a predictable and consistent roadmap and delivered with better concordance.
 
-This repo is for demo of integration of Galacean Effects Native Player(take GEPlayer for short).
+This repo is for demo of integration of Galacean Effects Native Player(take ``GEPlayer`` for short).
 
-## OS Version Requirement
+## OS Requirement
+
 - Android: 6.0 or later
 - iOS: 11.0 or later
 
 ## Directory layout
 
-* "ios": iOS demo xcode project
-* "android": Android demo gradle project
+* ``ios``: iOS demo xcode project
+* ``android``: Android demo gradle project
 
 ## Getting Started
 
@@ -88,14 +91,17 @@ public class GEPlayDemo extends Activity {
 
 ### iOS
 
-Add the following code snippet to your Podfile
+Add the following dependency to your Podfile
+
 ```
 target 'xxx' do
   # ...
   pod 'GalaceanEffects'
 end
-```  
-and
+```
+
+and integrate in your ViewController
+
 ```
 #import <GalaceanEffects/GEPlayer.h>
 #import <GalaceanEffects/GEUnzipProtocol.h>
@@ -145,9 +151,11 @@ and
 ```
 
 ## API Documentation
-For more information about the APIs of GEPlayer, please visit: [https://galacean.antgroup.com/effects/#/user/ox4pb0gu4zuol6st](https://galacean.antgroup.com/effects/#/user/ox4pb0gu4zuol6st)
 
-## Contributions
+For more information of the GEPlayer API, please visit: [https://galacean.antgroup.com/effects/#/user/ox4pb0gu4zuol6st](https://galacean.antgroup.com/effects/#/user/ox4pb0gu4zuol6st)
+
+## Contribution
+
 Contributions are welcome! If you have any suggestions or improvements, please feel free to open an issue or submit a pull request.
 
 ## License
