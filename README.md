@@ -1,7 +1,7 @@
 # Galacean Effects Native Examples
 
 ## Introduction
-GEPlayer is a powerful tool for playing Galacean Effects Native animations on mobile platforms. It provides an easy-to-use interface and supports both Android and iOS. This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
+GEPlayer is a powerful tool for playing Galacean Effects Native animations on mobile platforms. It provides an easy-to-use interface and supports both Android and iOS.  This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
 - android/: Android Examples
 - ios/: iOS Examples
 
@@ -25,6 +25,48 @@ and
 ```
 import io.github.galacean.effects.GEPlayer
 // ...
+
+public class GEPlayDemo extends Activity {
+    // ...
+    private LinearLayout mRoot;
+    private GEPlayer mPlayer;
+    
+	private void playAnimation() {
+        GEPlayer.GEPlayerParams params = new GEPlayer.GEPlayerParams();
+        params.url = "xxxxx";
+        this.player = new GEPlayer(this, params); 
+        
+        WeakReference<GEPlayDemo> weakThiz = new WeakReference<>(this);
+        mPlayer.loadScene(new GEPlayer.Callback() {
+            @Override
+            public void onResult(boolean success, String errorMsg) {
+                GEPlayDemo thiz = weakThiz.get();
+                if (thiz == null || !success) {
+                    return;
+                }
+
+                // ... 
+                thiz.mRoot.addView(thiz.mPlayer);
+
+                thiz.mPlayer.play(0, new GEPlayer.Callback() {
+                    @Override
+                    public void onResult(boolean success, String errorMsg) {
+                        GEPlayDemo thiz = weakThiz.get();
+                        if (thiz == null || !success) {
+                            return;
+                        }
+                        if (thiz.mPlayer != null) {
+                            thiz.mRoot.removeView(thiz.mPlayer);
+                            thiz.mPlayer.destroy();
+                            thiz.mPlayer = null;
+                        }
+                        // ...
+                    }
+                });
+            }
+        });
+    }
+}
 ```
 - iOS: Add the following code snippet to your Podfile
 ```
@@ -38,6 +80,48 @@ and
 #import <GalaceanEffects/GEPlayer.h>
 #import <GalaceanEffects/GEUnzipProtocol.h>
 // ...
+
+@interface GEPlayDemo : UIViewController
+// ...
+@end
+
+@interface GEPlayDemo ()
+@property (nonatomic, strong) GEPlayer *player;
+// ...
+@end
+
+@implementation GEPlayDemo
+// ...
+- (void)playAnimation:(UIView *)view {
+    GEPlayerParams *params = [[GEPlayerParams alloc] init];
+    params.url = @"xxx";
+    self.player = [[GEPlayer alloc] initWithParams:params];
+
+    __weak GEPlayDemo *weakThiz = self;
+    [self.player loadScene:^(BOOL success, NSString *errorMsg) {
+        __strong GEPlayDemo *thiz = weakThiz;
+        if (!thiz || !success) {
+            return;
+        }
+        
+        // ...
+        [thiz.view addSubview:thiz.player];
+
+        [thiz.player playWithRepeatCount:0 Callback:^(BOOL success, NSString *errorMsg) {
+            __strong GEPlayDemo *thiz = weakThiz;
+            if (!thiz || !success) {
+                return;
+            }
+            if (thiz.player) {
+                [thiz.player removeFromSuperview];
+                [thiz.player destroy];
+                thiz.player = nil;
+            }
+            // ...
+        }];
+    }];
+}
+@end
 ```
 
 ## API Documentation
