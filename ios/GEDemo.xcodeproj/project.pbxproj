@@ -389,7 +389,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../../libs/framework";
+				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../libs/framework";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GEDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -416,7 +416,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../../libs/framework";
+				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../libs/framework";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GEDemo/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

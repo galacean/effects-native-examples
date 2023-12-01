@@ -51,7 +51,7 @@ public class GEPlayDemo extends Activity {
     private LinearLayout mRoot;
     private GEPlayer mPlayer;
     
-	private void playAnimation() {
+    private void playAnimation() {
         GEPlayer.GEPlayerParams params = new GEPlayer.GEPlayerParams();
         params.url = "xxxxx";
         this.player = new GEPlayer(this, params); 
