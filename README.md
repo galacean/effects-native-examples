@@ -1,36 +1,28 @@
 # Galacean Effects Native Examples
 
 ## Introduction
-
-Galacean Effects Native is a mobile first motion engine of [Galacean Effects](https://galacean.antgroup.com/effects/#/home) targeting mobile platform(iOS & Android), which shares the same [Galacean Effects format](https://github.com/galacean/effects-specification) and [Galacean Effects Studio](https://huoxing.alipay.com/) workflow. This repository demonstrates how to use GEPlayer to play Galacean Effects Native animation resources on Android or iOS.
-
-It features:
-
-* high performance, max reaches 120fps, the core engine is built upon c++ and the standard-compliant OpenGL graphic layer.
-* seamless integrate with mobile widgets, you can combine Galacean Effects Native animation with mobile animations flexibly to achieve better immersive experience.
-* vector based, and video support coming soon, mass adoption in mobile app(Alipay).
-* motion engine implements(web、Android、iOS)、Galacean Effects file format & spec、Galacean Effects Studio maintained by a whole team of [Galacean Effects](https://galacean.antgroup.com/effects/#/home), evolves in a predictable and consistent roadmap and delivered with better concordance.
-
-This repo is for demo of integration of Galacean Effects Native Player(take ``GEPlayer`` for short).
+This repo is for demo of integration of [GalaceanEffectsNative](https://github.com/galacean/effects-native) player (take ``GEPlayer`` for short).
 
 ## OS Requirement
-
 - Android: 6.0 or later
 - iOS: 11.0 or later
 
 ## Directory layout
-
-* ``ios``: iOS demo xcode project
-* ``android``: Android demo gradle project
+```
+GalaceanEffectsNativeExamples
+├── android # Android demo gradle project
+├── ios # iOS demo Xcode project
+├── libs # binary artifact
+│   ├── aar  
+│   └── framework 
+└── ...
+```
 
 ## Getting Started
-
 To use GEPlayer in your Android or iOS project, follow these steps:
 
 ### Android
-
-Add the following dependencies to your build.gradle file
-
+Add the following dependencies to your build.gradle file:
 ```
 dependencies {
     // ...
@@ -40,114 +32,14 @@ dependencies {
 }
 ```
 
-and extends your own activity
-
-```
-import io.github.galacean.effects.GEPlayer
-// ...
-
-public class GEPlayDemo extends Activity {
-    // ...
-    private LinearLayout mRoot;
-    private GEPlayer mPlayer;
-    
-    private void playAnimation() {
-        GEPlayer.GEPlayerParams params = new GEPlayer.GEPlayerParams();
-        params.url = "xxxxx";
-        this.player = new GEPlayer(this, params); 
-        
-        WeakReference<GEPlayDemo> weakThiz = new WeakReference<>(this);
-        mPlayer.loadScene(new GEPlayer.Callback() {
-            @Override
-            public void onResult(boolean success, String errorMsg) {
-                GEPlayDemo thiz = weakThiz.get();
-                if (thiz == null || !success) {
-                    return;
-                }
-
-                // ... 
-                thiz.mRoot.addView(thiz.mPlayer);
-
-                thiz.mPlayer.play(0, new GEPlayer.Callback() {
-                    @Override
-                    public void onResult(boolean success, String errorMsg) {
-                        GEPlayDemo thiz = weakThiz.get();
-                        if (thiz == null || !success) {
-                            return;
-                        }
-                        if (thiz.mPlayer != null) {
-                            thiz.mRoot.removeView(thiz.mPlayer);
-                            thiz.mPlayer.destroy();
-                            thiz.mPlayer = null;
-                        }
-                        // ...
-                    }
-                });
-            }
-        });
-    }
-}
-```
-
 ### iOS
 
-Add the following dependency to your Podfile
-
+Add the following dependency to your Podfile:
 ```
 target 'xxx' do
   # ...
   pod 'GalaceanEffects'
 end
-```
-
-and integrate in your ViewController
-
-```
-#import <GalaceanEffects/GEPlayer.h>
-#import <GalaceanEffects/GEUnzipProtocol.h>
-// ...
-
-@interface GEPlayDemo : UIViewController
-// ...
-@end
-
-@interface GEPlayDemo ()
-@property (nonatomic, strong) GEPlayer *player;
-// ...
-@end
-
-@implementation GEPlayDemo
-// ...
-- (void)playAnimation:(UIView *)view {
-    GEPlayerParams *params = [[GEPlayerParams alloc] init];
-    params.url = @"xxx";
-    self.player = [[GEPlayer alloc] initWithParams:params];
-
-    __weak GEPlayDemo *weakThiz = self;
-    [self.player loadScene:^(BOOL success, NSString *errorMsg) {
-        __strong GEPlayDemo *thiz = weakThiz;
-        if (!thiz || !success) {
-            return;
-        }
-        
-        // ...
-        [thiz.view addSubview:thiz.player];
-
-        [thiz.player playWithRepeatCount:0 Callback:^(BOOL success, NSString *errorMsg) {
-            __strong GEPlayDemo *thiz = weakThiz;
-            if (!thiz || !success) {
-                return;
-            }
-            if (thiz.player) {
-                [thiz.player removeFromSuperview];
-                [thiz.player destroy];
-                thiz.player = nil;
-            }
-            // ...
-        }];
-    }];
-}
-@end
 ```
 
 ## API Documentation
