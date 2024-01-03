@@ -1,6 +1,9 @@
 package com.example.galacean_effects;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,7 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.alipay.mobile.galacean_effects.GEPlayer;
+import com.antgroup.galacean.effects.GEPlayer;
 
 import java.lang.ref.WeakReference;
 
@@ -79,10 +82,30 @@ public class GEPlayDemo extends Activity {
         }
     }
 
+    private final static String[] urls = new String[] {
+        "https://mdn.alipayobjects.com/mars/afts/file/A*WL2TTZ0DBGoAAAAAAAAAAAAAARInAQ", // 0 heart粒子
+        "https://mdn.alipayobjects.com/mars/afts/file/A*D6TbS5ax2TgAAAAAAAAAAAAAARInAQ", // 1 闪电球
+        "https://mdn.alipayobjects.com/mars/afts/file/A*TazWSbYr84wAAAAAAAAAAAAAARInAQ", // 2 年兽大爆炸
+        "https://mdn.alipayobjects.com/mars/afts/file/A*e7_FTLA_REgAAAAAAAAAAAAAARInAQ", // 3 双十一鼓掌
+        "https://mdn.alipayobjects.com/mars/afts/file/A*D4ixTaUS-HoAAAAAAAAAAAAADlB4AQ", // 4 敬业福弹卡
+        "https://mdn.alipayobjects.com/mars/afts/file/A*OW2VSKK3bWIAAAAAAAAAAAAADlB4AQ", // 5 七夕福利倒计时
+        "https://mdn.alipayobjects.com/mars/afts/file/A*wIkMSokvwCgAAAAAAAAAAAAAARInAQ", // 6 天猫618
+        "https://mdn.alipayobjects.com/mars/afts/file/A*VtHiR4iOuxYAAAAAAAAAAAAAARInAQ", // 7 年度账单（40s）
+    };
+
     private void simplePlay() {
         GEPlayer.GEPlayerParams params = new GEPlayer.GEPlayerParams();
-        params.url = "https://mdn.alipayobjects.com/mars/afts/file/A*e7_FTLA_REgAAAAAAAAAAAAAARInAQ";
+        int idx = 4;
+        params.url = urls[idx];
+
+        // 降级图
+        Bitmap bitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(Color.CYAN);
+        params.downgradeImage = bitmap;
+
         mPlayer = new GEPlayer(this, params);
+
         // 用于判断回调时的player是否是当前成员变量player
         WeakReference<GEPlayer> weakPlayer = new WeakReference<>(mPlayer);
         // 防止循环调用，建议使用弱引用
@@ -100,6 +123,10 @@ public class GEPlayDemo extends Activity {
                 }
                 if (!success) {
                     Log.e(TAG, "loadScene fail," + errorMsg);
+                    thiz.mPlayer.setX(0);
+                    thiz.mPlayer.setY(0);
+                    thiz.mPlayer.setLayoutParams(new LinearLayout.LayoutParams((int) thiz.mRoot.getWidth(), (int) thiz.mRoot.getHeight()));
+                    thiz.mRoot.addView(thiz.mPlayer);
                     return;
                 }
 
@@ -119,7 +146,7 @@ public class GEPlayDemo extends Activity {
 
                 thiz.mPlayer.setX(x);
                 thiz.mPlayer.setY(y);
-                thiz.mPlayer.setLayoutParams(new ViewGroup.LayoutParams((int) w, (int) h));
+                thiz.mPlayer.setLayoutParams(new LinearLayout.LayoutParams((int) w, (int) h));
                 thiz.mRoot.addView(thiz.mPlayer);
 
                 thiz.mPlayer.play(0, new GEPlayer.Callback() {

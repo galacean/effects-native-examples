@@ -59,7 +59,35 @@
     }
     
     GEPlayerParams *params = [[GEPlayerParams alloc] init];
-    params.url = @"https://mdn.alipayobjects.com/mars/afts/file/A*e7_FTLA_REgAAAAAAAAAAAAAARInAQ";
+    
+    NSArray* urls = @[
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*WL2TTZ0DBGoAAAAAAAAAAAAAARInAQ", // 0 heart粒子
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*D6TbS5ax2TgAAAAAAAAAAAAAARInAQ", // 1 闪电球
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*TazWSbYr84wAAAAAAAAAAAAAARInAQ", // 2 年兽大爆炸
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*e7_FTLA_REgAAAAAAAAAAAAAARInAQ", // 3 双十一鼓掌
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*D4ixTaUS-HoAAAAAAAAAAAAADlB4AQ", // 4 敬业福弹卡
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*OW2VSKK3bWIAAAAAAAAAAAAADlB4AQ", // 5 七夕福利倒计时
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*wIkMSokvwCgAAAAAAAAAAAAAARInAQ", // 6 天猫618
+        @"https://mdn.alipayobjects.com/mars/afts/file/A*VtHiR4iOuxYAAAAAAAAAAAAAARInAQ", // 7 年度账单（40s）
+    ];
+    int idx = 4;
+    params.url = urls[idx];
+    
+    UIImage* downgradeImage = nil;
+    {
+        CGSize imageSize = CGSizeMake(256, 256);
+        UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0.0);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        if (context == NULL) {
+            UIGraphicsEndImageContext();
+        }
+        CGContextSetFillColorWithColor(context, [UIColor cyanColor].CGColor);
+        CGContextFillRect(context, CGRectMake(0, 0, imageSize.width, imageSize.height));
+        downgradeImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    params.downgradeImage = downgradeImage;
+    
     self.player = [[GEPlayer alloc] initWithParams:params];
     // 用于判断回调时的player是否是当前成员变量player
     __weak GEPlayer *weakPlayer = self.player;
@@ -76,6 +104,8 @@
         }
         if (!success) {
             NSLog(@"loadScene fail,%@", errorMsg);
+            thiz.player.frame = CGRectMake(0, 0, thiz.view.frame.size.width, thiz.view.frame.size.height);
+            [thiz.view addSubview:thiz.player];
             return;
         }
         

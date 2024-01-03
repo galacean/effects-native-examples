@@ -1,6 +1,8 @@
 #ifndef GEUnzipProtocol_h
 #define GEUnzipProtocol_h
 
+#import <Foundation/Foundation.h>
+
 @protocol GEUnzipProtocol <NSObject>
 
 -(BOOL) UnzipOpenFile:(NSString*) zipFile;
